@@ -26,7 +26,23 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     private Rigidbody _rb;
+    private AudioSource _audio;
 
+    [SerializeField]
+    private AudioClip[] _footstepSounds;
+
+    [SerializeField]
+    private float _minTimeBetweenFootsteps = 0.3f;
+    [SerializeField]
+    private float _maxTimeBetweenFootsteps = 0.45f;
+    [SerializeField]
+    private float _minTimeBetweenFootstepsRun = 0.1f;
+    [SerializeField]
+    private float _maxTimeBetweenFootstepsRun = 0.2f;
+
+    private float _timeSinceLastFootstep;
+
+    private bool _isMoving = false;
     private bool _isRunning = false;
     private bool _isGrounded = false;
 
@@ -34,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _rb.freezeRotation = true;
+        _audio = GetComponent<AudioSource>();
         _groundLayer = LayerMask.GetMask("Ground");
     }
 
@@ -60,13 +77,13 @@ public class PlayerMovement : MonoBehaviour
 
         GetInput();
         SpeedControl();
-
+        MovePlayer();
 
     }
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        //MovePlayer();
     }
 
     private void GetInput()
@@ -77,9 +94,28 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        moveDirection = orientation.forward * _verticalInput + orientation.right * _horizontalInput;
-        float speed = 0;
+        if (_horizontalInput != 0 || _verticalInput != 0)
+        {
+            _isMoving = true;
+        }
+        else
+        {
+            _isMoving = false;
+        }
 
+        if (_isMoving)
+        {
+            PlayStepSounds();
+        }
+        if (!_isMoving)
+        {
+            _audio.Stop();
+
+        }
+
+        moveDirection = orientation.forward * _verticalInput + orientation.right * _horizontalInput;
+
+        float speed = 0;
         if (_isRunning)
         {
             speed = _runSpeed;
@@ -114,6 +150,34 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 limitedVel = flatVel.normalized * speed;
             _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, limitedVel.z);
+        }
+    }
+
+    private void PlayStepSounds()
+    {
+        float minTime = 0;
+        float maxTime = 0;
+
+        int arrayLength = 0;
+
+        if (_isRunning)
+        {
+            minTime = _minTimeBetweenFootstepsRun;
+            maxTime = _maxTimeBetweenFootstepsRun;
+            arrayLength = _footstepSounds.Length;
+        }
+        else
+        {
+            minTime = _minTimeBetweenFootsteps;
+            maxTime = _maxTimeBetweenFootsteps;
+            arrayLength = _footstepSounds.Length - 1;
+        }
+
+        if (Time.time - _timeSinceLastFootstep >= Random.Range(minTime, maxTime))
+        {
+            AudioClip footstepSound = _footstepSounds[Random.Range(0, arrayLength)];
+            _audio.PlayOneShot(footstepSound);
+            _timeSinceLastFootstep = Time.time;
         }
     }
 }
