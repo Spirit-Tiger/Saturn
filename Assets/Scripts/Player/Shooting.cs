@@ -16,8 +16,9 @@ public class Shooting : MonoBehaviour
     [SerializeField]
     private float _bulletLifeTime;
 
-    [SerializeField]
-    private GameObject _particles;
+/*    [SerializeField]
+    private GameObject _particles;*/
+
     [SerializeField]
     private float _particlesLifeTime;
 
@@ -57,9 +58,9 @@ public class Shooting : MonoBehaviour
             }
 
             _audio.PlayOneShot(_shootSound);
-            GameObject particles = Instantiate(_particles, _spawnPoint.position, Quaternion.identity);
+    /*        GameObject particles = Instantiate(_particles, _spawnPoint.position, Quaternion.identity);
             particles.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-            StartCoroutine(DestoyParticles(particles, _particlesLifeTime));
+            StartCoroutine(DestoyParticles(particles, _particlesLifeTime));*/
 
             _ammo -= 1;
             _isReadyToShoot = false;
@@ -71,11 +72,11 @@ public class Shooting : MonoBehaviour
         }
     }
 
-    private IEnumerator DestoyParticles(GameObject particles, float delay)
+/*    private IEnumerator DestoyParticles(GameObject particles, float delay)
     {
         yield return new WaitForSeconds(delay);
         Destroy(particles);
-    }
+    }*/
 
 
     private void Update()
