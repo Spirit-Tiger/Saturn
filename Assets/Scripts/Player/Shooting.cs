@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Shooting : MonoBehaviour
 {
@@ -16,11 +18,10 @@ public class Shooting : MonoBehaviour
     [SerializeField]
     private float _bulletLifeTime;
 
-/*    [SerializeField]
-    private GameObject _particles;*/
-
     [SerializeField]
-    private float _particlesLifeTime;
+    private VisualEffect _shootFireEffect;
+    [SerializeField]
+    private GameObject _shootLight;
 
     [SerializeField]
     private int _ammo = 5;
@@ -36,6 +37,8 @@ public class Shooting : MonoBehaviour
     private float _timer;
     private bool _isReadyToShoot = true;
 
+    public static event Action<int> OnAmmoChanged;
+
     private void Awake()
     {
         _cam = Camera.main;
@@ -48,7 +51,7 @@ public class Shooting : MonoBehaviour
         {
             RaycastHit hit;
 
-            if(Physics.Raycast(_cam.transform.position, transform.forward, out hit, 200f))
+            if (Physics.Raycast(_cam.transform.position, transform.forward, out hit, 200f))
             {
                 if (hit.collider.CompareTag("Wall"))
                 {
@@ -56,32 +59,23 @@ public class Shooting : MonoBehaviour
                     hole.transform.SetParent(hit.collider.gameObject.transform);
                 }
             }
-
+            _shootFireEffect.Play();
+            _shootLight.SetActive(true);
             _audio.PlayOneShot(_shootSound);
-    /*        GameObject particles = Instantiate(_particles, _spawnPoint.position, Quaternion.identity);
-            particles.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-            StartCoroutine(DestoyParticles(particles, _particlesLifeTime));*/
-
             _ammo -= 1;
+            OnAmmoChanged?.Invoke(_ammo);
             _isReadyToShoot = false;
         }
 
-        if(_isReadyToShoot && _ammo == 0)
+        if (_isReadyToShoot && _ammo == 0)
         {
             _audio.PlayOneShot(_emptySound);
         }
     }
 
-/*    private IEnumerator DestoyParticles(GameObject particles, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Destroy(particles);
-    }*/
-
-
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Shoot();
         }
@@ -100,5 +94,6 @@ public class Shooting : MonoBehaviour
     public void LoadGun(int bulletsCount)
     {
         _ammo += bulletsCount;
+        OnAmmoChanged?.Invoke(_ammo);
     }
 }

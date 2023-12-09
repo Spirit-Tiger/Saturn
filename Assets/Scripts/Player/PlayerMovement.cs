@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -173,9 +174,9 @@ public class PlayerMovement : MonoBehaviour
             arrayLength = _footstepSounds.Length - 1;
         }
 
-        if (Time.time - _timeSinceLastFootstep >= Random.Range(minTime, maxTime))
+        if (Time.time - _timeSinceLastFootstep >= UnityEngine.Random.Range(minTime, maxTime))
         {
-            AudioClip footstepSound = _footstepSounds[Random.Range(0, arrayLength)];
+            AudioClip footstepSound = _footstepSounds[UnityEngine.Random.Range(0, arrayLength)];
             _audio.PlayOneShot(footstepSound);
             _timeSinceLastFootstep = Time.time;
         }
