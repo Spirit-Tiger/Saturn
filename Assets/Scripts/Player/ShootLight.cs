@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightFlash : MonoBehaviour
+public class ShootLight : MonoBehaviour
 {
     [SerializeField]
     private float _dealy = 0.1f;
