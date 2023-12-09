@@ -49,9 +49,10 @@ public class Shooting : MonoBehaviour
     {
         if (_isReadyToShoot && _ammo > 0)
         {
+            Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hit;
 
-            if (Physics.Raycast(_cam.transform.position, transform.forward, out hit, 200f))
+            if (Physics.Raycast(ray,out hit, 200f))
             {
                 if (hit.collider.CompareTag("Wall"))
                 {
