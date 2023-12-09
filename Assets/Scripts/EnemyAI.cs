@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -24,7 +25,8 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        if(Vector3.Distance(transform.position, _target) < 2)
+       
+        if (Vector3.Distance(transform.position, _target) < 2)
         {
             IterateWaypointIndex();
             UpdateDestinition();
@@ -35,6 +37,7 @@ public class EnemyAI : MonoBehaviour
     {
         _target = _waypoints[_waypointIndex].position;
         _navAgent.SetDestination( _target );
+        transform.LookAt(_target, Vector3.up);
     }
 
     private void IterateWaypointIndex()
