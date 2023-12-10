@@ -48,7 +48,7 @@ public class AmmoUI : MonoBehaviour
                     bulletUI = Instantiate(_bulletUI);
                     bulletUI.transform.SetParent(_canvas);
                     Transform prevElementTransform = _bulletsStack.Peek().transform;
-                    bulletUI.transform.position = prevElementTransform.position + new Vector3(prevElementTransform.position.y + prevElementTransform.GetComponent<RectTransform>().rect.width, 0, 0);
+                    bulletUI.transform.position = prevElementTransform.position + new Vector3(prevElementTransform.position.y, 0, 0);
                     _bulletsStack.Push(bulletUI);
                 }
              

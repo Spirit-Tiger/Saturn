@@ -9,6 +9,11 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     private Transform[] _waypoints;
 
+    [SerializeField]
+    private float _delay;
+
+    private WaitForSeconds _waitSeconds;
+
     private NavMeshAgent _navAgent;
     private int _waypointIndex = 0;
     private Vector3 _target;
@@ -16,6 +21,7 @@ public class EnemyAI : MonoBehaviour
     private void Awake()
     {
         _navAgent= GetComponent<NavMeshAgent>();
+        _waitSeconds = new WaitForSeconds(_delay);
     }
 
     private void Start()
@@ -25,7 +31,6 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-       
         if (Vector3.Distance(transform.position, _target) < 2)
         {
             IterateWaypointIndex();
@@ -36,8 +41,7 @@ public class EnemyAI : MonoBehaviour
     private void UpdateDestinition()
     {
         _target = _waypoints[_waypointIndex].position;
-        _navAgent.SetDestination( _target );
-        transform.LookAt(_target, Vector3.up);
+        StartCoroutine(TimeToSwitch());
     }
 
     private void IterateWaypointIndex()
@@ -47,5 +51,11 @@ public class EnemyAI : MonoBehaviour
         {
             _waypointIndex = 0;
         }
+    }
+
+    private IEnumerator TimeToSwitch()
+    {
+        yield return _waitSeconds;
+        _navAgent.SetDestination(_target);
     }
 }
