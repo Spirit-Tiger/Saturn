@@ -5,47 +5,84 @@ using UnityEngine.UIElements;
 
 public class EnemyEyeSensor : MonoBehaviour
 {
+
+    public float Radius = 5f;
+    [Range(0f, 360f)]
+    public float Angle = 30f;
+
+    private LayerMask _playerMask;
+    private LayerMask _obstacleMask;
+
+    public GameObject playerRef;
+    public bool CanSeePlayer;
+
+    private EnemyAI _enemyAI;
+
+    private enum EnemyType
+    {
+        Guard,
+        Monster
+    };
     [SerializeField]
-    private float _distance = 50f;
-    private float _angle = 30f;
-    private float _height = 2f;
-
-    private GameObject _player;
-
-    private Mesh _mesh;
-
+    private EnemyType _type;
     private void Awake()
     {
-        _player = GameObject.Find("PLAYER");
+        playerRef = GameObject.FindGameObjectWithTag("Player");
+        _enemyAI = GetComponent<EnemyAI>();
+        _playerMask = LayerMask.GetMask("Player");
+        _obstacleMask = LayerMask.GetMask("Wall");
     }
 
-    private void FieldOfViewCheck()
+    private void Start()
     {
-        Vector3 directionToPlayer = (_player.transform.position - transform.position).normalized;
-        if(Vector3.Angle(transform.forward,directionToPlayer) < _angle)
-        {
+        StartCoroutine(FOVRoutine());
+    }
 
+    private IEnumerator FOVRoutine()
+    {
+        WaitForSeconds wait = new WaitForSeconds(0.2f);
+
+        while (true)
+        {
+            yield return wait;
+            FieldOfViewCheck();
         }
     }
-
-    private Mesh CreateEyeSightMesh()
+    private void FieldOfViewCheck()
     {
-        Mesh mesh = new Mesh();
-        int numTriangles = 8;
-        int numVertices = 3 * numTriangles;
+        Collider[] rangeCheck = Physics.OverlapSphere(transform.position, Radius, _playerMask);
 
-        Vector3[] vertices = new Vector3[numVertices];
-        int[] triangles = new int[numVertices];
-
-        Vector3 bottomCenter = Vector3.zero;
-        Vector3 bottomLeft = Quaternion.Euler(0, -_angle, 0) * Vector3.forward * _distance;
-        Vector3 bottomRight = Quaternion.Euler(0, _angle, 0) * Vector3.forward * _distance;
-
-        Vector3 topCenter = bottomCenter + Vector3.up * _height;
-        Vector3 topLeft = bottomLeft + Vector3.up * _height;
-        Vector3 topRight = bottomRight + Vector3.up * _height;
-
-        return mesh;
+        if (rangeCheck.Length != 0)
+        {
+            Transform target = rangeCheck[0].transform;
+            Vector3 directionToPlayer = (target.position - transform.position).normalized;
+            if (Vector3.Angle(transform.forward, directionToPlayer) < Angle)
+            {
+                float distance = Vector3.Distance(transform.position, target.position);
+                if (!Physics.Raycast(transform.position, directionToPlayer, distance, _obstacleMask))
+                {
+                    CanSeePlayer = true;
+                    if (_type == EnemyType.Guard && _enemyAI.CurrentEnemyState != EnemyAI.EnemyState.Detect)
+                    {
+                        _enemyAI.ChangeState(EnemyAI.EnemyState.Detect);
+                    }
+                    if(_type == EnemyType.Monster && _enemyAI.CurrentEnemyState != EnemyAI.EnemyState.Chase) {
+                        _enemyAI.ChangeState(EnemyAI.EnemyState.Chase);
+                    }
+                }
+                else
+                {
+                    CanSeePlayer = false;
+                }
+            }
+            else
+            {
+                CanSeePlayer = false;
+            }
+        }
+        else if (CanSeePlayer)
+        {
+            CanSeePlayer = false;
+        }
     }
-
 }

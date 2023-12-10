@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,9 +19,23 @@ public class EnemyAI : MonoBehaviour
     private int _waypointIndex = 0;
     private Vector3 _target;
 
+    private EnemyEyeSensor _fieldOfView;
+
+    public enum EnemyState
+    {
+        Idle,
+        Patrolling,
+        Chase,
+        Attack,
+        Detect,
+    }
+
+    public EnemyState CurrentEnemyState;
+
     private void Awake()
     {
-        _navAgent= GetComponent<NavMeshAgent>();
+        _navAgent = GetComponent<NavMeshAgent>();
+        _fieldOfView = GetComponent<EnemyEyeSensor>();
         _waitSeconds = new WaitForSeconds(_delay);
     }
 
@@ -31,11 +46,78 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, _target) < 2)
+        if (CurrentEnemyState == EnemyState.Patrolling)
         {
-            IterateWaypointIndex();
-            UpdateDestinition();
+            if (Vector3.Distance(transform.position, _target) < 2)
+            {
+                IterateWaypointIndex();
+                UpdateDestinition();
+            }
+            if(_fieldOfView.CanSeePlayer == false)
+            {
+                ChangeState(EnemyState.Patrolling);
+            }
         }
+        if (CurrentEnemyState == EnemyState.Chase)
+        {
+            if (_fieldOfView.CanSeePlayer == false)
+            {
+                ChangeState(EnemyState.Patrolling);
+            }
+        }
+        if (CurrentEnemyState == EnemyState.Detect)
+        {
+            if (_fieldOfView.CanSeePlayer == false)
+            {
+                ChangeState(EnemyState.Patrolling);
+            }
+        }
+    }
+
+    public void ChangeState(EnemyState state)
+    {
+        CurrentEnemyState = state;
+        switch (CurrentEnemyState)
+        {
+            case EnemyState.Idle:
+                IdleStateTurnOn();
+                break;
+            case EnemyState.Patrolling:
+                PatrollingStateTurnOn();
+                break;
+            case EnemyState.Detect:
+                DetectStateTurnOn();
+                break;
+            case EnemyState.Chase:
+                ChaseStateTurnOn();
+                break;
+        }
+    }
+
+    private void IdleStateTurnOn()
+    {
+        //_anim.SetTriger("Idel");
+        Debug.Log("IdleState");
+    }
+
+    private void PatrollingStateTurnOn()
+    {
+        _navAgent.isStopped = false;
+        //_anim.SetTriger("Move");
+        _navAgent.SetDestination(_target);
+        Debug.Log("PatrollingState");
+    }
+
+    private void DetectStateTurnOn()
+    {
+        //_anim.SetTriger("Detect");
+        _navAgent.isStopped = true;
+        Debug.Log("DetectState");
+    }
+    private void ChaseStateTurnOn()
+    {
+        //_anim.SetTriger("Chase");
+        Debug.Log("ChaseState");
     }
 
     private void UpdateDestinition()
