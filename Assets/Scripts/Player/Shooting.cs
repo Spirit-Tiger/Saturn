@@ -10,13 +10,7 @@ public class Shooting : MonoBehaviour
     private Camera _cam;
 
     [SerializeField]
-    private GameObject _bullet;
-    [SerializeField]
     private Transform _spawnPoint;
-    [SerializeField]
-    private float _bulletSpeed;
-    [SerializeField]
-    private float _bulletLifeTime;
 
     [SerializeField]
     private VisualEffect _shootFireEffect;
@@ -45,6 +39,24 @@ public class Shooting : MonoBehaviour
         _audio = GetComponent<AudioSource>();
         _timer = _shootingDelay;
     }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Shoot();
+        }
+
+        if (!_isReadyToShoot && _timer > 0)
+        {
+            _timer -= Time.deltaTime;
+        }
+        else
+        {
+            _timer = _shootingDelay;
+            _isReadyToShoot = true;
+        }
+    }
     private void Shoot()
     {
         if (_isReadyToShoot && _ammo > 0)
@@ -71,24 +83,6 @@ public class Shooting : MonoBehaviour
         if (_isReadyToShoot && _ammo == 0)
         {
             _audio.PlayOneShot(_emptySound);
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Shoot();
-        }
-
-        if (!_isReadyToShoot && _timer > 0)
-        {
-            _timer -= Time.deltaTime;
-        }
-        else
-        {
-            _timer = _shootingDelay;
-            _isReadyToShoot = true;
         }
     }
 

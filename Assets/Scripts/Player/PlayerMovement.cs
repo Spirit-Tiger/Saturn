@@ -78,13 +78,13 @@ public class PlayerMovement : MonoBehaviour
 
         GetInput();
         SpeedControl();
-        MovePlayer();
+        //MovePlayer();
 
     }
 
     private void FixedUpdate()
     {
-        //MovePlayer();
+        MovePlayer();
     }
 
     private void GetInput()
