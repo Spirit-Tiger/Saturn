@@ -11,17 +11,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d0997ddc4622ad64db0a23f6262fda9a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.44
+      value: -1.0043166
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d0997ddc4622ad64db0a23f6262fda9a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.47
+      value: 2.2953386
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d0997ddc4622ad64db0a23f6262fda9a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 25.09
+      value: 20.229298
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d0997ddc4622ad64db0a23f6262fda9a,
         type: 3}
@@ -68,6 +68,11 @@ PrefabInstance:
       propertyPath: m_Avatar
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d0997ddc4622ad64db0a23f6262fda9a,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 80bcf1ced110e55439722e33eb8b12f9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -120,7 +125,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  _delay: 0
+  _delay: 2
   CurrentEnemyState: 1
 --- !u!195 &3579146429173530943
 NavMeshAgent:
@@ -207,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Radius: 5
-  Angle: 30
+  Angle: 131
   playerRef: {fileID: 0}
   CanSeePlayer: 0
   _type: 0

@@ -21,6 +21,8 @@ public class EnemyAI : MonoBehaviour
 
     private EnemyEyeSensor _fieldOfView;
 
+    private float _speed;
+
     public enum EnemyState
     {
         Idle,
@@ -37,6 +39,8 @@ public class EnemyAI : MonoBehaviour
         _navAgent = GetComponent<NavMeshAgent>();
         _fieldOfView = GetComponent<EnemyEyeSensor>();
         _waitSeconds = new WaitForSeconds(_delay);
+
+        _speed = _navAgent.speed;
     }
 
     private void Start()
@@ -96,23 +100,23 @@ public class EnemyAI : MonoBehaviour
 
     private void IdleStateTurnOn()
     {
-        //_anim.SetTriger("Idel");
         Debug.Log("IdleState");
     }
 
     private void PatrollingStateTurnOn()
     {
         _navAgent.isStopped = false;
-        //_anim.SetTriger("Move");
+        _navAgent.speed = _speed;
+        GetComponent<Animator>().Play("Gwalking");
         _navAgent.SetDestination(_target);
         Debug.Log("PatrollingState");
     }
 
     private void DetectStateTurnOn()
-    {
-        //_anim.SetTriger("Detect");
+    { 
         _navAgent.isStopped = true;
-        GetComponent<AudioSource>().Play();
+        _navAgent.speed = 0;
+        GetComponent<Animator>().Play("Gwhisle");
         Debug.Log("DetectState");
     }
     private void ChaseStateTurnOn()
@@ -140,5 +144,10 @@ public class EnemyAI : MonoBehaviour
     {
         yield return _waitSeconds;
         _navAgent.SetDestination(_target);
+    }
+
+    public void DetectSound()
+    {
+        GetComponent<AudioSource>().Play();
     }
 }
