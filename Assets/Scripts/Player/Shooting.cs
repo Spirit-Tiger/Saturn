@@ -42,7 +42,7 @@ public class Shooting : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && GameManager.Instance.CanShoot)
         {
             Shoot();
         }

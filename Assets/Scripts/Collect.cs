@@ -60,7 +60,7 @@ public class Collect : MonoBehaviour
                 _pressButtonText.gameObject.SetActive(true);
             }
         }
-        else if (_pressButtonText.gameObject.activeSelf == true)
+        if (_hit.collider == null && _pressButtonText.gameObject.activeSelf)
         {
             _pressButtonText.gameObject.SetActive(false);
         }

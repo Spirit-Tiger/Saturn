@@ -112,6 +112,7 @@ public class EnemyAI : MonoBehaviour
     {
         //_anim.SetTriger("Detect");
         _navAgent.isStopped = true;
+        GetComponent<AudioSource>().Play();
         Debug.Log("DetectState");
     }
     private void ChaseStateTurnOn()
