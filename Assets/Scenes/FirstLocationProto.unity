@@ -6897,7 +6897,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 9b0e2230ff66f3743bb6834d52d0c8c2, type: 2}
+      objectReference: {fileID: 9100000, guid: 80bcf1ced110e55439722e33eb8b12f9, type: 2}
     - target: {fileID: 9086389916140096184, guid: fdf9e00982102b241a8b37f9c60296ae,
         type: 3}
       propertyPath: _delay
@@ -15705,7 +15705,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 9b0e2230ff66f3743bb6834d52d0c8c2, type: 2}
+      objectReference: {fileID: 9100000, guid: 80bcf1ced110e55439722e33eb8b12f9, type: 2}
     - target: {fileID: 9086389916140096184, guid: fdf9e00982102b241a8b37f9c60296ae,
         type: 3}
       propertyPath: _delay
