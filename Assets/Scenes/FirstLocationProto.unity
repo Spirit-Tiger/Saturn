@@ -15566,6 +15566,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 78.4
       objectReference: {fileID: 0}
+    - target: {fileID: 1248160025635221827, guid: 3be05b59dd8fdc448a19a14d8cb6bf83,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2127886354799179357, guid: 3be05b59dd8fdc448a19a14d8cb6bf83,
         type: 3}
       propertyPath: m_Avatar
@@ -15665,6 +15670,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4624133750693377693, guid: 3be05b59dd8fdc448a19a14d8cb6bf83,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6184634591472357631, guid: 3be05b59dd8fdc448a19a14d8cb6bf83,
         type: 3}
