@@ -31,20 +31,23 @@ public class PlayerCamera : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
     private void Update()
     {
-        if (GameManager.Instance.CanMoveCamera)
+        if (GameManager.Instance.CanAct)
         {
-            _turn.x += Input.GetAxisRaw("Mouse X") * sensX * Time.deltaTime;
-            _turnX2 += Input.GetAxisRaw("Mouse X") * sensX * Time.deltaTime;
-            _turn.y += Input.GetAxisRaw("Mouse Y") * sensY * Time.deltaTime;
+            if (GameManager.Instance.CanMoveCamera)
+            {
+                _turn.x += Input.GetAxisRaw("Mouse X") * sensX * Time.deltaTime;
+                _turnX2 += Input.GetAxisRaw("Mouse X") * sensX * Time.deltaTime;
+                _turn.y += Input.GetAxisRaw("Mouse Y") * sensY * Time.deltaTime;
 
-            _turn.y = Mathf.Clamp(_turn.y, _downLimit, _upLimit);
-            _turn.x = Mathf.Clamp(_turn.x, -_rotationLimit, _rotationLimit);
+                _turn.y = Mathf.Clamp(_turn.y, _downLimit, _upLimit);
+                _turn.x = Mathf.Clamp(_turn.x, -_rotationLimit, _rotationLimit);
+            }
         }
     }
 

@@ -42,19 +42,23 @@ public class Shooting : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && GameManager.Instance.CanShoot)
+        if (GameManager.Instance.CanAct)
         {
-            Shoot();
-        }
+            if (Input.GetMouseButtonDown(0) && GameManager.Instance.CanShoot)
+            {
+                Shoot();
+            }
 
-        if (!_isReadyToShoot && _timer > 0)
-        {
-            _timer -= Time.deltaTime;
-        }
-        else
-        {
-            _timer = _shootingDelay;
-            _isReadyToShoot = true;
+            if (!_isReadyToShoot && _timer > 0)
+            {
+                _timer -= Time.deltaTime;
+            }
+            else
+            {
+                _timer = _shootingDelay;
+                _isReadyToShoot = true;
+            }
+
         }
     }
     private void Shoot()

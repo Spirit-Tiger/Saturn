@@ -57,34 +57,39 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        _isGrounded = Physics.Raycast(transform.position, Vector3.down, _playerHeight * 0.5f + 0.3f, _groundLayer);
-        if (_isGrounded)
+        if (GameManager.Instance.CanAct)
         {
-            _rb.drag = _groundDrag;
-        }
-        else
-        {
-            _rb.drag = 0;
-        }
+            _isGrounded = Physics.Raycast(transform.position, Vector3.down, _playerHeight * 0.5f + 0.3f, _groundLayer);
+            if (_isGrounded)
+            {
+                _rb.drag = _groundDrag;
+            }
+            else
+            {
+                _rb.drag = 0;
+            }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            _isRunning = true;
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            _isRunning = false;
-        }
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                _isRunning = true;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                _isRunning = false;
+            }
 
-        GetInput();
-        SpeedControl();
-        //MovePlayer();
-
+            GetInput();
+            SpeedControl();
+            //MovePlayer();
+        }
     }
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (GameManager.Instance.CanAct)
+        {
+            MovePlayer();
+        }
     }
 
     private void GetInput()

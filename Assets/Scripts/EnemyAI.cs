@@ -57,10 +57,10 @@ public class EnemyAI : MonoBehaviour
                 IterateWaypointIndex();
                 UpdateDestinition();
             }
-            if(_fieldOfView.CanSeePlayer == false)
+      /*      if(_fieldOfView.CanSeePlayer == false)
             {
                 ChangeState(EnemyState.Patrolling);
-            }
+            }*/
         }
         if (CurrentEnemyState == EnemyState.Chase)
         {
