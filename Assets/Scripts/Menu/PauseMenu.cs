@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         GameManager.Instance.IsPaused = false;
+        GameManager.Instance.CanAct = true;
         GameManager.Instance.PauseMenu.SetActive(false);
     }
     public void ExitGame()

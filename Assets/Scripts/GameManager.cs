@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public bool IsPaused = false;
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -29,17 +29,28 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("Update");
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("Pause");
-            IsPaused = true;
-            PauseMenu.SetActive(true);
-            Time.timeScale = 0;
-        }
-        if(IsPaused && Input.GetKeyDown(KeyCode.Escape))
-        {
-            Time.timeScale = 1;
-            PauseMenu.SetActive(false);
+            if (IsPaused == true)
+            {
+                CanAct = true;
+                IsPaused = false;
+                Time.timeScale = 1;
+                PauseMenu.SetActive(false);
+                HideCursor();
+
+
+            }
+            else if (IsPaused == false)
+            {
+                Debug.Log("Pause");
+                UnlockCursor();
+                CanAct = false;
+                IsPaused = true;
+                PauseMenu.SetActive(true);
+                Time.timeScale = 0;
+            }
         }
     }
 
