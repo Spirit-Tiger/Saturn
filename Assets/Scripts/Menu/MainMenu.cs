@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    
     public void StartGame()
     {
-        SceneManager.LoadScene("FirstLocationProto");
+        GameManager.Instance.StartGame();
+        gameObject.SetActive(false);
+        Debug.Log("StartGame");
     }
 
     public void ExitGame()

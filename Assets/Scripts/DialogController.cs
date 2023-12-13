@@ -22,6 +22,8 @@ public class DialogController : MonoBehaviour
     private GameObject _showNextMessageButton;
     [SerializeField]
     private GameObject _finishDialogButton;
+    [SerializeField]
+    private float _startDelay = 2f;
     private bool _canShowNextMessage = false;
     private bool _canFinish = false;
 
@@ -31,16 +33,18 @@ public class DialogController : MonoBehaviour
     {
         _typingAudio = GetComponent<AudioSource>();
         _backgroundPanel = GetComponent<Image>();
+        StartCoroutine(StartDelay());
     }
 
-    private void Start()
+    private IEnumerator StartDelay()
     {
+        yield return new WaitForSeconds(_startDelay);
         NextMessage();
     }
 
     private void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) )
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)))
         {
             if (_canShowNextMessage)
             {
@@ -54,10 +58,10 @@ public class DialogController : MonoBehaviour
 
         if (_fadeOut)
         {
-            if(_backgroundPanel.color.a >= 0)
+            if (_backgroundPanel.color.a >= 0)
             {
                 var tempColor = _backgroundPanel.color;
-                tempColor.a = Mathf.Lerp(tempColor.a,0,0.2f);
+                tempColor.a = Mathf.Lerp(tempColor.a, 0, 0.2f);
                 _backgroundPanel.color = tempColor;
                 Debug.Log(_backgroundPanel.color.a);
                 if (_backgroundPanel.color.a <= 0.001f)
@@ -78,13 +82,14 @@ public class DialogController : MonoBehaviour
     public void FinishDialogue()
     {
         _finishDialogButton.SetActive(false);
-
+        
         for (int i = 0; i < _dialogObjects.Length; i++)
         {
             _dialogObjects[i].gameObject.SetActive(false);
         }
 
         _fadeOut = true;
+        GameManager.Instance.InDialogue = false;
     }
 
     private IEnumerator TypeLetters()
@@ -108,7 +113,7 @@ public class DialogController : MonoBehaviour
         {
             _canFinish = true;
             _finishDialogButton.SetActive(true);
-           _objectCounter = 0;
+            _objectCounter = 0;
         }
         else
         {

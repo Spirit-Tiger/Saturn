@@ -55,12 +55,17 @@ public class Collect : MonoBehaviour
         Ray ray = _cam.ViewportPointToRay(_centerPoint);
         if (Physics.Raycast(ray, out _hit, _hitRange, _interactableLayer))
         {
-            if (_pressButtonText.gameObject.activeSelf == false)
+            if (_pressButtonText.gameObject.activeSelf == false && GameManager.Instance.InNote == false)
             {
                 _pressButtonText.gameObject.SetActive(true);
             }
         }
         if (_hit.collider == null && _pressButtonText.gameObject.activeSelf)
+        {
+            _pressButtonText.gameObject.SetActive(false);
+        }
+
+        if (_pressButtonText.gameObject.activeSelf && GameManager.Instance.InNote)
         {
             _pressButtonText.gameObject.SetActive(false);
         }
