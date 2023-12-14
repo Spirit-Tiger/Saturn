@@ -9,8 +9,11 @@ public class GameManager : MonoBehaviour
     public GameObject PauseMenu;
     public GameObject DialogScreen;
     public GameObject Crosshair;
+    public GameObject Player;
 
     public Transform RespawnPoint;
+
+    public Vector3 LadderStartPosition;
 
     public bool CanMoveCamera = true;
     public bool CanShoot = true;
@@ -19,6 +22,7 @@ public class GameManager : MonoBehaviour
     public bool InGame = false;
     public bool InDialogue = false;
     public bool InNote = false;
+    public bool IsOnLadder = false;
     private void Awake()
     {
         if (Instance == null)
@@ -53,6 +57,7 @@ public class GameManager : MonoBehaviour
             {
 
                 UnlockCursor();
+                Cursor.visible = true;
                 CanAct = false;
                 IsPaused = true;
                 PauseMenu.SetActive(true);

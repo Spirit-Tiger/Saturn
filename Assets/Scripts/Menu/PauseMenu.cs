@@ -12,6 +12,7 @@ public class PauseMenu : MonoBehaviour
         if (GameManager.Instance.InDialogue == false)
         {
             GameManager.Instance.CanAct = true;
+            GameManager.Instance.HideCursor();
         }
         GameManager.Instance.PauseMenu.SetActive(false);
     }

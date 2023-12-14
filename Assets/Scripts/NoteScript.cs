@@ -9,16 +9,9 @@ public class NoteScript : MonoBehaviour,IInteractable
     [SerializeField]
     private string _noteText;
 
-    private GameObject _uiCanvas;
-    private GameObject _noteUI;
+    public  GameObject _noteUI;
     private bool _noteIsOpened = false;
 
-
-    private void Awake()
-    {
-        _uiCanvas = GameObject.Find("Canvas");
-        _noteUI = _uiCanvas.transform.Find("NoteUI").gameObject;
-    }
 
     private void Update()
     {

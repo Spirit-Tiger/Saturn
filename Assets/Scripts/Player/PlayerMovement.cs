@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using static UnityEngine.GraphicsBuffer;
+using Unity.Burst.CompilerServices;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private float _moveSpeed;
     [SerializeField]
     private float _runSpeed;
+    [SerializeField]
+    private float _ladderSpeed;
 
     [SerializeField]
     private float _groundDrag;
@@ -18,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     private float _playerHeight;
 
     private LayerMask _groundLayer;
+
+    public GameObject CurrentLadder;
 
     public Transform orientation;
 
@@ -57,9 +63,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        GetInput();
         if (GameManager.Instance.CanAct)
         {
-            _isGrounded = Physics.Raycast(transform.position, Vector3.down, _playerHeight * 0.5f + 0.3f, _groundLayer);
+            _isGrounded = Physics.Raycast(transform.position, Vector3.down, _playerHeight * 0.5f + 0.3f);
             if (_isGrounded)
             {
                 _rb.drag = _groundDrag;
@@ -77,10 +84,27 @@ public class PlayerMovement : MonoBehaviour
             {
                 _isRunning = false;
             }
-
-            GetInput();
             SpeedControl();
-            //MovePlayer();
+        }
+
+        if (GameManager.Instance.IsOnLadder)
+        {
+            Gizmos.color = Color.blue;
+            RaycastHit hit;
+            float hitDist = 2f;
+            if (Physics.Raycast(transform.position + Vector3.down * 0.3f, orientation.forward, out hit, hitDist, LayerMask.GetMask("Ladder")))
+            {
+                Debug.DrawLine(transform.position + Vector3.down * 0.3f, transform.position + Vector3.down * 0.3f + orientation.forward * hitDist, Color.yellow);
+                Debug.Log(hit.collider.transform.forward);
+
+            }
+            else
+            {
+                Debug.Log("NULL");
+                _rb.AddForce(orientation.forward + Vector3.up * 12f, ForceMode.Force);
+                GameManager.Instance.CanAct = true;
+                GameManager.Instance.IsOnLadder = false;
+            }
         }
     }
 
@@ -88,7 +112,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (GameManager.Instance.CanAct)
         {
+            _rb.useGravity = true;
             MovePlayer();
+        }
+        if (GameManager.Instance.IsOnLadder)
+        {
+            _rb.useGravity = false;
+            MoveOnLadder();
         }
     }
 
@@ -134,6 +164,14 @@ public class PlayerMovement : MonoBehaviour
         if (_isGrounded)
         {
             _rb.AddForce(moveDirection.normalized * speed, ForceMode.Force);
+        }
+    }
+
+    private void MoveOnLadder()
+    {
+        if (_verticalInput != 0)
+        {
+            transform.position += new Vector3(0, _ladderSpeed * _verticalInput * Time.fixedDeltaTime, 0);
         }
     }
 

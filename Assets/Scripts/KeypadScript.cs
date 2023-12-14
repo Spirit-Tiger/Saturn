@@ -12,14 +12,14 @@ public class KeypadScript : MonoBehaviour
     private void OnEnable()
     {
         UnityEngine.Cursor.lockState = CursorLockMode.None;
-        GameManager.Instance.CanShoot = false;
-        GameManager.Instance.CanMoveCamera = false;
+        GameManager.Instance.CanAct = false;
+        GameManager.Instance.InNote = true;
     }
 
     private void OnDisable()
     {
-        GameManager.Instance.CanShoot = true;
-        GameManager.Instance.CanMoveCamera = true;
+        GameManager.Instance.CanAct = true;
+        GameManager.Instance.InNote = false;
         Crosshair.GetComponent<RectTransform>().position = new Vector2(960,540);
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         DeleteText();

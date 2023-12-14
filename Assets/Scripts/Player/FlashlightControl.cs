@@ -15,7 +15,7 @@ public class FlashlightControl : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetMouseButtonDown(0) && GameManager.Instance.InNote == false)
         {
             _flashlightSound.Play();
             _flashlight.enabled = !_flashlight.enabled;
