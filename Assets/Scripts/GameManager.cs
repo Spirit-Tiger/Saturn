@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject DialogScreen;
     public GameObject Crosshair;
     public GameObject Player;
+    public GameObject CameraPoint;
+    public GameObject CurrentLadder;
 
     public Transform RespawnPoint;
 
@@ -23,6 +25,8 @@ public class GameManager : MonoBehaviour
     public bool InDialogue = false;
     public bool InNote = false;
     public bool IsOnLadder = false;
+    public bool IsExitingLadder = false;
+    public bool IsEnteringLadderDown = false;
     private void Awake()
     {
         if (Instance == null)

@@ -23,8 +23,6 @@ public class PlayerMovement : MonoBehaviour
 
     private LayerMask _groundLayer;
 
-    public GameObject CurrentLadder;
-
     public Transform orientation;
 
     private float _horizontalInput;
@@ -52,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isMoving = false;
     private bool _isRunning = false;
     private bool _isGrounded = false;
+    private bool _isOnFirstPoint = false;
 
     private void Start()
     {
@@ -63,10 +62,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        _isGrounded = Physics.Raycast(transform.position, Vector3.down, _playerHeight * 0.5f + 0.2f);
         GetInput();
         if (GameManager.Instance.CanAct)
         {
-            _isGrounded = Physics.Raycast(transform.position, Vector3.down, _playerHeight * 0.5f + 0.3f);
+
             if (_isGrounded)
             {
                 _rb.drag = _groundDrag;
@@ -89,22 +89,70 @@ public class PlayerMovement : MonoBehaviour
 
         if (GameManager.Instance.IsOnLadder)
         {
-            Gizmos.color = Color.blue;
+      
             RaycastHit hit;
             float hitDist = 2f;
-            if (Physics.Raycast(transform.position + Vector3.down * 0.3f, orientation.forward, out hit, hitDist, LayerMask.GetMask("Ladder")))
+            if (GameManager.Instance.IsEnteringLadderDown)
             {
-                Debug.DrawLine(transform.position + Vector3.down * 0.3f, transform.position + Vector3.down * 0.3f + orientation.forward * hitDist, Color.yellow);
-                Debug.Log(hit.collider.transform.forward);
+                Transform point3 = GameManager.Instance.CurrentLadder.transform.GetChild(2);
+                GameManager.Instance.Player.transform.GetChild(0).rotation = point3.rotation;
+                GameManager.Instance.CameraPoint.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                orientation.localEulerAngles =  GameManager.Instance.CurrentLadder.transform.eulerAngles;
+                orientation.forward = point3.forward;
 
+                transform.position = Vector3.MoveTowards(transform.position, point3.position, _ladderSpeed * Time.deltaTime);
+                if (transform.position == point3.position)
+                {
+                    GameManager.Instance.IsEnteringLadderDown = false;
+                }
+            }
+
+            if (GameManager.Instance.IsEnteringLadderDown == false)
+            {
+                if (Physics.Raycast(transform.position + Vector3.down * 0.3f, orientation.forward, out hit, hitDist, LayerMask.GetMask("Ladder")))
+                {
+                    Debug.DrawLine(transform.position + Vector3.down * 0.3f, transform.position + Vector3.down * 0.3f + orientation.forward * hitDist, Color.yellow);
+                    //Debug.Log(hit.collider.transform.forward);
+                }
+                else
+                {
+                    Debug.DrawLine(transform.position + Vector3.down * 0.3f, transform.position + Vector3.down * 0.3f + orientation.forward * hitDist, Color.yellow);
+                    GameManager.Instance.IsExitingLadder = true;
+                    //GameManager.Instance.IsOnLadder = false;
+                }
+            }
+
+
+        }
+
+        if (GameManager.Instance.IsExitingLadder)
+        {
+
+            Transform point1 = GameManager.Instance.CurrentLadder.transform.GetChild(0);
+            Transform point2 = GameManager.Instance.CurrentLadder.transform.GetChild(1);
+
+            if (_isOnFirstPoint == false)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, point1.position, _ladderSpeed * Time.deltaTime);
             }
             else
             {
-                Debug.Log("NULL");
-                _rb.AddForce(orientation.forward + Vector3.up * 12f, ForceMode.Force);
-                GameManager.Instance.CanAct = true;
-                GameManager.Instance.IsOnLadder = false;
+                transform.position = Vector3.MoveTowards(transform.position, point2.position, _ladderSpeed * Time.deltaTime);
             }
+
+            if (transform.position == point1.position)
+            {
+                _isOnFirstPoint = true;
+            }
+
+            if (transform.position == point2.position)
+            {
+                _isOnFirstPoint = false;
+                GameManager.Instance.IsExitingLadder = false;
+                GameManager.Instance.IsOnLadder = false;
+                GameManager.Instance.CanAct = true;
+            }
+
         }
     }
 
@@ -169,8 +217,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveOnLadder()
     {
-        if (_verticalInput != 0)
+        if (_verticalInput != 0 && !GameManager.Instance.IsExitingLadder && !GameManager.Instance.IsEnteringLadderDown)
         {
+            if(_verticalInput < 0 && _isGrounded)
+            {
+                GameManager.Instance.IsOnLadder = false;
+                GameManager.Instance.CanAct = true;
+            }
             transform.position += new Vector3(0, _ladderSpeed * _verticalInput * Time.fixedDeltaTime, 0);
         }
     }
