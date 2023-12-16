@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public GameObject CurrentLadder;
 
     public Transform RespawnPoint;
+    public Transform Bottle;
+    public Vector3 BottlePosition;
 
     public Vector3 LadderStartPosition;
 
@@ -27,12 +29,14 @@ public class GameManager : MonoBehaviour
     public bool IsOnLadder = false;
     public bool IsExitingLadder = false;
     public bool IsEnteringLadderDown = false;
+    public bool HasBottle = false;
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
         }
+        BottlePosition = Bottle.localPosition;
     }
 
     private void Start()

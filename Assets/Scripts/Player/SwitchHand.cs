@@ -10,17 +10,32 @@ public class SwitchHand : MonoBehaviour
     [SerializeField]
     private GameObject _falshlight;
 
+    [SerializeField]
+    private GameObject _bottle;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _gun.SetActive(false);
+            _bottle.SetActive(false);
             _falshlight.SetActive(true);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             _gun.SetActive(true);
+            _bottle.SetActive(false);
+            _falshlight.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (GameManager.Instance.HasBottle)
+            {
+                _bottle.SetActive(true);
+            }
+            _gun.SetActive(false);
             _falshlight.SetActive(false);
         }
     }
