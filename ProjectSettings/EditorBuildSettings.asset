@@ -5,16 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/StartScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: Assets/Scenes/FirstLocationProto.unity
-    guid: ea4685f22b542f3479acf40a7fde6a7b
-  - enabled: 0
-    path: Assets/Scenes/MenuScene.unity
-    guid: 40f2581ee460a134990afa4736a95fd8
   - enabled: 1
-    path: Assets/Scenes/TerrainProto.unity
-    guid: 76598ebad47406746b87239fad901d5b
+    path: Assets/Scenes/Terfin.unity
+    guid: 482d1e5e7926b6f4c8812e894c6b13dc
+  - enabled: 1
+    path: Assets/Scenes/FinCut.unity
+    guid: 9b294998a8bc9b0449da13a28eee55ab
   m_configObjects: {}

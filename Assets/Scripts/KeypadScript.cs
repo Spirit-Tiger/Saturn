@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class KeypadScript : MonoBehaviour
@@ -50,7 +51,8 @@ public class KeypadScript : MonoBehaviour
         if (Int32.Parse(EnteredText.text) == 0832)
         {
 
-          StartCoroutine(StoryManager.Instance.PlayTimelineRoutine());
+            SceneManager.LoadScene("FinCut");
+
             gameObject.SetActive(false);
         }
         else
