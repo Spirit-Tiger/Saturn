@@ -92,20 +92,7 @@ public class PlayerMovement : MonoBehaviour
       
             RaycastHit hit;
             float hitDist = 2f;
-            if (GameManager.Instance.IsEnteringLadderDown)
-            {
-                Transform point3 = GameManager.Instance.CurrentLadder.transform.GetChild(2);
-                GameManager.Instance.Player.transform.GetChild(0).rotation = point3.rotation;
-                GameManager.Instance.CameraPoint.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                orientation.localEulerAngles =  GameManager.Instance.CurrentLadder.transform.eulerAngles;
-                orientation.forward = point3.forward;
 
-                transform.position = Vector3.MoveTowards(transform.position, point3.position, _ladderSpeed * Time.deltaTime);
-                if (transform.position == point3.position)
-                {
-                    GameManager.Instance.IsEnteringLadderDown = false;
-                }
-            }
 
             if (GameManager.Instance.IsEnteringLadderDown == false)
             {
@@ -125,6 +112,37 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+       
+    }
+
+    private void FixedUpdate()
+    {
+        if (GameManager.Instance.CanAct)
+        {
+            _rb.useGravity = true;
+            MovePlayer();
+        }
+        if (GameManager.Instance.IsOnLadder)
+        {
+            _rb.useGravity = false;
+            MoveOnLadder();
+        }
+
+        if (GameManager.Instance.IsEnteringLadderDown)
+        {
+            Transform point3 = GameManager.Instance.CurrentLadder.transform.GetChild(2);
+            GameManager.Instance.Player.transform.GetChild(0).rotation = point3.rotation;
+            GameManager.Instance.CameraPoint.transform.localRotation = Quaternion.Slerp(GameManager.Instance.CameraPoint.transform.localRotation, Quaternion.Euler(0, 0, 0), 3f * Time.deltaTime);
+            orientation.localEulerAngles = GameManager.Instance.CurrentLadder.transform.eulerAngles;
+            orientation.forward = point3.forward;
+
+            transform.position = Vector3.MoveTowards(transform.position, point3.position, _ladderSpeed * Time.deltaTime);
+            if (transform.position == point3.position)
+            {
+                GameManager.Instance.IsEnteringLadderDown = false;
+            }
+        }
+
         if (GameManager.Instance.IsExitingLadder)
         {
 
@@ -133,11 +151,11 @@ public class PlayerMovement : MonoBehaviour
 
             if (_isOnFirstPoint == false)
             {
-                transform.position = Vector3.MoveTowards(transform.position, point1.position, _ladderSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, point1.position, _ladderSpeed * Time.fixedDeltaTime);
             }
             else
             {
-                transform.position = Vector3.MoveTowards(transform.position, point2.position, _ladderSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, point2.position, _ladderSpeed * Time.fixedDeltaTime);
             }
 
             if (transform.position == point1.position)
@@ -153,20 +171,6 @@ public class PlayerMovement : MonoBehaviour
                 GameManager.Instance.CanAct = true;
             }
 
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if (GameManager.Instance.CanAct)
-        {
-            _rb.useGravity = true;
-            MovePlayer();
-        }
-        if (GameManager.Instance.IsOnLadder)
-        {
-            _rb.useGravity = false;
-            MoveOnLadder();
         }
     }
 

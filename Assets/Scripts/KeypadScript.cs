@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -46,6 +47,14 @@ public class KeypadScript : MonoBehaviour
     public void Enter()
     {
         Debug.Log("EnteredText");
-        gameObject.SetActive(false);
+        if (Int32.Parse(EnteredText.text) == 0832)
+        {
+            Debug.Log("Passed");
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            DeleteText();
+        }
     }
 }

@@ -22,19 +22,16 @@ public class SwitchHand : MonoBehaviour
             _falshlight.SetActive(true);
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2) && GameManager.Instance.HasGun)
         {
             _gun.SetActive(true);
             _bottle.SetActive(false);
             _falshlight.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.Alpha3) && GameManager.Instance.HasBottle)
         {
-            if (GameManager.Instance.HasBottle)
-            {
-                _bottle.SetActive(true);
-            }
+            _bottle.SetActive(true);
             _gun.SetActive(false);
             _falshlight.SetActive(false);
         }

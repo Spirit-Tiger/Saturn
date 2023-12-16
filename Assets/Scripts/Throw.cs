@@ -5,6 +5,7 @@ using UnityEngine;
 public class Throw : MonoBehaviour
 {
     private bool _InAir = false;
+    public AudioClip BottleCrash;
     private void OnEnable()
     {
         if (gameObject.GetComponent<Rigidbody>())
@@ -26,11 +27,16 @@ public class Throw : MonoBehaviour
     {
         if (_InAir)
         {
-            gameObject.GetComponent<AudioSource>().Play();
+            gameObject.GetComponent<AudioSource>().PlayOneShot(BottleCrash);
             GameManager.Instance.HasBottle= false;
             gameObject.transform.localPosition = GameManager.Instance.BottlePosition;
-           gameObject.SetActive(false);
-
+            StartCoroutine(DisableBottle());
         }
+    }
+
+    private IEnumerator DisableBottle()
+    {
+        yield return new WaitForSeconds(3f);
+        gameObject.SetActive(false);
     }
 }
