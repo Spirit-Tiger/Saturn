@@ -63,6 +63,7 @@ public class Collect : MonoBehaviour
         if (_hit.collider == null && _pressButtonText.gameObject.activeSelf)
         {
             _pressButtonText.gameObject.SetActive(false);
+            Debug.Log("--");
         }
 
         if (_pressButtonText.gameObject.activeSelf && GameManager.Instance.InNote)

@@ -49,7 +49,8 @@ public class KeypadScript : MonoBehaviour
         Debug.Log("EnteredText");
         if (Int32.Parse(EnteredText.text) == 0832)
         {
-            Debug.Log("Passed");
+
+          StartCoroutine(StoryManager.Instance.PlayTimelineRoutine());
             gameObject.SetActive(false);
         }
         else

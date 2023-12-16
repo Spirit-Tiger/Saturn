@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 
 public class StoryManager : MonoBehaviour
@@ -13,6 +14,10 @@ public class StoryManager : MonoBehaviour
     public TaskSO CurrentTask;
     public Image BlackScreen;
     public int ReadedNotes = 0;
+
+
+    public PlayableDirector Director;
+    public GameObject FinishScreen;
 
     private void Awake()
     {
@@ -77,6 +82,23 @@ public class StoryManager : MonoBehaviour
             CurrentTask = Tasks[id];
             TaskTextUI.text = CurrentTask.TaskDescription;
             TaskTextUI.transform.parent.gameObject.SetActive(true);
+
+    }
+
+
+    public IEnumerator PlayTimelineRoutine()
+    {
+        //Director.Play();
+
+        GameManager.Instance.CanAct = false;
+        GameManager.Instance.UnlockCursor();
+        Cursor.visible = true;
+        FinishScreen.SetActive(true);
+        yield return new WaitForSeconds(0);
+        GameManager.Instance.CanAct = false;
+        GameManager.Instance.UnlockCursor();
+        Cursor.visible = true;
+        FinishScreen.SetActive(true);
 
     }
 }

@@ -12,7 +12,7 @@ public class NoteScript : MonoBehaviour,IInteractable
     public  GameObject _noteUI;
     private bool _noteIsOpened = false;
     private bool _readed = false;
-
+    public bool _notForStory;
     private void Update()
     {
         if (_noteIsOpened && Input.GetKeyDown(KeyCode.Escape))
@@ -26,7 +26,7 @@ public class NoteScript : MonoBehaviour,IInteractable
 
     public void Interact()
     {
-        if (!_readed)
+        if (!_readed && !_notForStory)
         {
             StoryManager.Instance.ReadedNotes++;
             _readed = true;

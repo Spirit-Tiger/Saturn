@@ -51,11 +51,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(IsPaused == false)
+        {
+            Music.UnPause();
+        }
         if (Input.GetKeyDown(KeyCode.P) && InGame)
         {
             if (IsPaused == true)
             {
-                Music.UnPause();
                 if (InDialogue == false)
                 {
                     Debug.Log("UnPause game");
