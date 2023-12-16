@@ -24,6 +24,8 @@ public class EnemyAI : MonoBehaviour
 
     private float _speed;
 
+    public bool Walking;
+
     public enum EnemyState
     {
         Idle,
@@ -47,7 +49,11 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         ChangeState(EnemyState.Idle);
-        //UpdateDestinition();
+        if (Walking)
+        {
+            UpdateDestinition();
+            ChangeState(EnemyState.Patrolling);
+        }
     }
 
     private void Update()
@@ -110,6 +116,7 @@ public class EnemyAI : MonoBehaviour
         _navAgent.isStopped = false;
         _navAgent.speed = _speed;
         GetComponent<Animator>().Play("Gwalking");
+        GetComponent<Animator>().SetTrigger("Go");
 
         _navAgent.SetDestination(_target);
         Debug.Log("PatrollingState");
