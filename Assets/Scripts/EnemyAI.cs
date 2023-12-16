@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
@@ -14,7 +15,7 @@ public class EnemyAI : MonoBehaviour
     private float _delay;
 
     private WaitForSeconds _waitSeconds;
-
+    
     private NavMeshAgent _navAgent;
     private int _waypointIndex = 0;
     private Vector3 _target;
@@ -45,7 +46,8 @@ public class EnemyAI : MonoBehaviour
 
     private void Start()
     {
-        UpdateDestinition();
+        ChangeState(EnemyState.Idle);
+        //UpdateDestinition();
     }
 
     private void Update()
@@ -108,6 +110,7 @@ public class EnemyAI : MonoBehaviour
         _navAgent.isStopped = false;
         _navAgent.speed = _speed;
         GetComponent<Animator>().Play("Gwalking");
+
         _navAgent.SetDestination(_target);
         Debug.Log("PatrollingState");
     }
@@ -117,6 +120,7 @@ public class EnemyAI : MonoBehaviour
         _navAgent.isStopped = true;
         _navAgent.speed = 0;
         GetComponent<Animator>().Play("Gwhisle");
+        StartCoroutine(TimeToDeath());
         Debug.Log("DetectState");
     }
     private void ChaseStateTurnOn()
@@ -144,6 +148,23 @@ public class EnemyAI : MonoBehaviour
     {
         yield return _waitSeconds;
         _navAgent.SetDestination(_target);
+    }
+
+    private IEnumerator TimeToDeath()
+    {
+        yield return new WaitForSeconds(3f);
+        GameManager.Instance.CanAct = false;
+        StoryManager.Instance.BlackScreen.gameObject.SetActive(true);
+        GameManager.Instance.Player.transform.position = GameManager.Instance.RespawnPoint.position;
+        GameManager.Instance.Player.transform.position = Vector3.MoveTowards(GameManager.Instance.Player.transform.position, GameManager.Instance.RespawnPoint.position, 1000f);
+        StartCoroutine(ShowPlayer());
+    }
+
+    private IEnumerator ShowPlayer()
+    {
+        yield return new WaitForSeconds(2f);
+        GameManager.Instance.CanAct = true;
+        StoryManager.Instance.BlackScreen.gameObject.SetActive(false);
     }
 
     public void DetectSound()

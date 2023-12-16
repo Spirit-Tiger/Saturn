@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
 
     public Vector3 LadderStartPosition;
 
+    public AudioSource Music;
+
     public bool CanMoveCamera = true;
     public bool CanShoot = true;
     public bool CanAct = false;
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
     public bool IsExitingLadder = false;
     public bool IsEnteringLadderDown = false;
     public bool HasBottle = false;
+    public bool HasGun = false;
     private void Awake()
     {
         if (Instance == null)
@@ -41,8 +44,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        CanAct = true;
-        HideCursor();
+        CanAct = false;
+        UnlockCursor();
+        HideCrosshair();
     }
 
     private void Update()
@@ -51,6 +55,7 @@ public class GameManager : MonoBehaviour
         {
             if (IsPaused == true)
             {
+                Music.UnPause();
                 if (InDialogue == false)
                 {
                     Debug.Log("UnPause game");
@@ -63,7 +68,7 @@ public class GameManager : MonoBehaviour
             }
             else if (IsPaused == false)
             {
-
+                Music.Pause();
                 UnlockCursor();
                 Cursor.visible = true;
                 CanAct = false;

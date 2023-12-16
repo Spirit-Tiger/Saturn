@@ -17,6 +17,8 @@ public class DialogController : MonoBehaviour
 
     private int _objectCounter = 0;
 
+    public AudioSource Music;
+
 
     [SerializeField]
     private GameObject _showNextMessageButton;
@@ -61,14 +63,16 @@ public class DialogController : MonoBehaviour
             if (_backgroundPanel.color.a >= 0)
             {
                 var tempColor = _backgroundPanel.color;
-                tempColor.a = Mathf.Lerp(tempColor.a, 0, 0.2f);
+                tempColor.a = Mathf.Lerp(tempColor.a, 0, 0.1f);
                 _backgroundPanel.color = tempColor;
                 Debug.Log(_backgroundPanel.color.a);
                 if (_backgroundPanel.color.a <= 0.001f)
                 {
                     GameManager.Instance.HideCursor();
+                    GameManager.Instance.ShowCrosshair();
                     GameManager.Instance.CanAct = true;
                     _fadeOut = false;
+                    Music.Play();
                     gameObject.SetActive(false);
                 }
             }
@@ -82,7 +86,7 @@ public class DialogController : MonoBehaviour
     public void FinishDialogue()
     {
         _finishDialogButton.SetActive(false);
-        
+        GameManager.Instance.HideCursor();
         for (int i = 0; i < _dialogObjects.Length; i++)
         {
             _dialogObjects[i].gameObject.SetActive(false);
