@@ -193,12 +193,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (_isMoving)
         {
-            //transform.GetChild(0).GetComponent<Animator>().SetBool("isWalking", true);
+            transform.GetChild(0).GetComponent<Animator>().SetBool("isWalking", true);
             PlayStepSounds();
         }
         if (!_isMoving)
         {
-           // transform.GetChild(0).GetComponent<Animator>().SetBool("isWalking", false);
+            transform.GetChild(0).GetComponent<Animator>().SetBool("isWalking", false);
             _audio.Stop();
 
         }
