@@ -13,7 +13,7 @@ public class EnemyAI : MonoBehaviour
 
     [SerializeField]
     private float _delay;
-
+    
     private WaitForSeconds _waitSeconds;
     
     private NavMeshAgent _navAgent;
@@ -25,6 +25,8 @@ public class EnemyAI : MonoBehaviour
     private float _speed;
 
     public bool Walking;
+
+    public Animator animator;
 
     public enum EnemyState
     {
@@ -62,10 +64,11 @@ public class EnemyAI : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, _target) < 2)
             {
+                
                 IterateWaypointIndex();
                 UpdateDestinition();
             }
-      /*      if(_fieldOfView.CanSeePlayer == false)
+            /*if(_fieldOfView.CanSeePlayer == false)
             {
                 ChangeState(EnemyState.Patrolling);
             }*/
@@ -82,6 +85,13 @@ public class EnemyAI : MonoBehaviour
             if (_fieldOfView.CanSeePlayer == false)
             {
                 ChangeState(EnemyState.Patrolling);
+            }
+        }
+            if (CurrentEnemyState == EnemyState.Detect)
+        {
+            if (_fieldOfView.CanSeePlayer == false)
+            {
+                ChangeState(EnemyState.Idle);
             }
         }
     }
@@ -108,15 +118,14 @@ public class EnemyAI : MonoBehaviour
 
     private void IdleStateTurnOn()
     {
-        Debug.Log("IdleState");
+        animator.SetTrigger("Stop");
     }
 
     private void PatrollingStateTurnOn()
     {
         _navAgent.isStopped = false;
         _navAgent.speed = _speed;
-        GetComponent<Animator>().Play("Gwalking");
-        GetComponent<Animator>().SetTrigger("Go");
+        animator.SetTrigger("Go");
 
         _navAgent.SetDestination(_target);
         Debug.Log("PatrollingState");
@@ -126,7 +135,7 @@ public class EnemyAI : MonoBehaviour
     { 
         _navAgent.isStopped = true;
         _navAgent.speed = 0;
-        GetComponent<Animator>().Play("Gwhisle");
+        animator.Play("Gwhisle");
         StartCoroutine(TimeToDeath());
         Debug.Log("DetectState");
     }
@@ -153,8 +162,10 @@ public class EnemyAI : MonoBehaviour
 
     private IEnumerator TimeToSwitch()
     {
+        animator.SetTrigger("Stop");
         yield return _waitSeconds;
         _navAgent.SetDestination(_target);
+        animator.SetTrigger("Go");
     }
 
     private IEnumerator TimeToDeath()
