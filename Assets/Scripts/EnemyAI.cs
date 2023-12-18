@@ -28,6 +28,8 @@ public class EnemyAI : MonoBehaviour
 
     public Animator animator;
 
+    public AudioSource audioSource;
+
     public enum EnemyState
     {
         Idle,
@@ -187,6 +189,6 @@ public class EnemyAI : MonoBehaviour
 
     public void DetectSound()
     {
-        GetComponent<AudioSource>().Play();
+        audioSource.Play();
     }
 }
