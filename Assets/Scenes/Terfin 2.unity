@@ -19307,6 +19307,100 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924806583}
   m_Mesh: {fileID: -1550514412580984892, guid: f4425ad48f8fe5247a2c6c29d350731f, type: 3}
+--- !u!1 &931346914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 931346918}
+  - component: {fileID: 931346917}
+  - component: {fileID: 931346916}
+  - component: {fileID: 931346915}
+  m_Layer: 9
+  m_Name: CutSceneTrigger (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!320 &931346915
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931346914}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 5b14ccbb99427e148b4df8babd44eed7, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 0}
+    value: {fileID: 0}
+  - key: {fileID: 3678152819525498486, guid: 5b14ccbb99427e148b4df8babd44eed7, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -8750586144226030587, guid: 5b14ccbb99427e148b4df8babd44eed7, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -8230631541857475740, guid: 5b14ccbb99427e148b4df8babd44eed7, type: 2}
+    value: {fileID: 0}
+  m_ExposedReferences:
+    m_References: []
+--- !u!114 &931346916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931346914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f9f2e07de26d047a8377b1fc6c7e24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CutScene: {fileID: 931346915}
+  BoxCollider: {fileID: 931346917}
+--- !u!65 &931346917
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931346914}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 3.44, z: 1.42}
+  m_Center: {x: 0, y: 0.35, z: 0}
+--- !u!4 &931346918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931346914}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -63, y: 3.61, z: -33}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &934846247 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7302926960702964815, guid: 6d1da06937cfb9e43aa45a3c08366e22,
@@ -32386,6 +32480,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ladder_Painter_Ready
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033353173903442166, guid: 1f4bc174f182af4499de30971ba3bebd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6590728681967503399, guid: 1f4bc174f182af4499de30971ba3bebd,
         type: 3}
@@ -55979,6 +56078,7 @@ SceneRoots:
   - {fileID: 315652013196082209}
   - {fileID: 973885419}
   - {fileID: 806533064}
+  - {fileID: 931346918}
   - {fileID: 677826967}
   - {fileID: 843116235}
   - {fileID: 116951962}

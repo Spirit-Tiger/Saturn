@@ -3316,7 +3316,7 @@ PrefabInstance:
     - target: {fileID: 873275904436264505, guid: 320b04edab9575744822c8805c8df278,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.2152634
+      value: 3.97
       objectReference: {fileID: 0}
     - target: {fileID: 873275904436264505, guid: 320b04edab9575744822c8805c8df278,
         type: 3}
@@ -42804,7 +42804,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -42835,7 +42835,7 @@ PlayableDirector:
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 5b14ccbb99427e148b4df8babd44eed7, type: 2}
   m_InitialState: 1
-  m_WrapMode: 0
+  m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
@@ -55808,7 +55808,7 @@ PrefabInstance:
     - target: {fileID: 5966640103381540213, guid: b489241cc2d42234ba146f4bc5b238ba,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
