@@ -13,6 +13,8 @@ public class SwitchHand : MonoBehaviour
     [SerializeField]
     private GameObject _bottle;
 
+    public Animator animator;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -20,6 +22,7 @@ public class SwitchHand : MonoBehaviour
             _gun.SetActive(false);
             _bottle.SetActive(false);
             _falshlight.SetActive(true);
+            animator.SetTrigger("FlashLight");
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2) && GameManager.Instance.HasGun)
@@ -27,6 +30,7 @@ public class SwitchHand : MonoBehaviour
             _gun.SetActive(true);
             _bottle.SetActive(false);
             _falshlight.SetActive(false);
+            animator.SetTrigger("Pistol");
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3) && GameManager.Instance.HasBottle)
@@ -34,6 +38,7 @@ public class SwitchHand : MonoBehaviour
             _bottle.SetActive(true);
             _gun.SetActive(false);
             _falshlight.SetActive(false);
+            //animator.SetTrigger("Bottle");
         }
     }
 }

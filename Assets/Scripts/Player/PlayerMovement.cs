@@ -52,8 +52,15 @@ public class PlayerMovement : MonoBehaviour
     private bool _isGrounded = false;
     private bool _isOnFirstPoint = false;
 
+    public Animator animator;
+    private float _velocity = 0.0f;
+    public float Acceleration = 0.1f;
+    public float Deceleration = 0.5f;
+    private int velocityHash;
+
     private void Start()
     {
+        velocityHash = Animator.StringToHash("MoveY");
         _rb = GetComponent<Rigidbody>();
         _rb.freezeRotation = true;
         _audio = GetComponent<AudioSource>();
@@ -62,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        _isGrounded = Physics.Raycast(transform.position, Vector3.down, _playerHeight * 0.5f + 0.2f);
+        _isGrounded = Physics.Raycast(transform.position, Vector3.down, _playerHeight * 0.5f + 0.4f);
         GetInput();
         if (GameManager.Instance.CanAct)
         {
@@ -75,15 +82,48 @@ public class PlayerMovement : MonoBehaviour
             {
                 _rb.drag = 0;
             }
+            
+            if ((Input.GetKey(KeyCode.LeftControl)))
+            {
+                animator.SetBool("isCrouching", true);
+                return;
+            }
+            else
+            {
+                animator.SetBool("isCrouching", false);
+            }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && _velocity < 0.5f)
             {
                 _isRunning = true;
+                _velocity += Time.deltaTime * Acceleration;
             }
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+
+            if (!(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && _velocity > 0.0f)
             {
                 _isRunning = false;
+                _velocity -= Time.deltaTime * Deceleration;
             }
+
+            if (Input.GetKey(KeyCode.LeftShift) && (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && _velocity < 1.0f)
+            {
+                _isRunning = true;
+                _velocity += Time.deltaTime * Acceleration;
+            }
+
+            if (!Input.GetKey(KeyCode.LeftShift) && _velocity > 0.5f)
+            {
+                _isRunning = false;
+                _velocity -= Time.deltaTime * Deceleration;
+            }
+
+            if (!(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftShift)) && _velocity < 0.0f)
+            {
+                _isRunning = false;
+                _velocity = 0.0f;
+            }
+
+            animator.SetFloat(velocityHash, _velocity);
             SpeedControl();
         }
 
@@ -193,12 +233,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (_isMoving)
         {
-            transform.GetChild(0).GetComponent<Animator>().SetBool("isWalking", true);
+            //transform.GetChild(0).GetComponent<Animator>().SetBool("isWalking", true);
             PlayStepSounds();
         }
         if (!_isMoving)
         {
-            transform.GetChild(0).GetComponent<Animator>().SetBool("isWalking", false);
+            //transform.GetChild(0).GetComponent<Animator>().SetBool("isWalking", false);
             _audio.Stop();
 
         }

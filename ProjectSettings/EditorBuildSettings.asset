@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Terfin.unity
-    guid: 482d1e5e7926b6f4c8812e894c6b13dc
+    path: Assets/Scenes/Terfin 2.unity
+    guid: 7e9f2d97b48a64246a4c5eed93f38617
   - enabled: 1
     path: Assets/Scenes/FinCut.unity
     guid: 9b294998a8bc9b0449da13a28eee55ab
