@@ -51757,17 +51757,22 @@ PrefabInstance:
     - target: {fileID: 3245943094471774013, guid: 3be05b59dd8fdc448a19a14d8cb6bf83,
         type: 3}
       propertyPath: _runSpeed
-      value: 60
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 3245943094471774013, guid: 3be05b59dd8fdc448a19a14d8cb6bf83,
         type: 3}
       propertyPath: _moveSpeed
-      value: 18
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3245943094471774013, guid: 3be05b59dd8fdc448a19a14d8cb6bf83,
         type: 3}
       propertyPath: Acceleration
-      value: 0.5
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3245943094471774013, guid: 3be05b59dd8fdc448a19a14d8cb6bf83,
+        type: 3}
+      propertyPath: Deceleration
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3245943094471774013, guid: 3be05b59dd8fdc448a19a14d8cb6bf83,
         type: 3}

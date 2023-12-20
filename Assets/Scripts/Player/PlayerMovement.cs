@@ -53,14 +53,17 @@ public class PlayerMovement : MonoBehaviour
     private bool _isOnFirstPoint = false;
 
     public Animator animator;
-    private float _velocity = 0.0f;
+    private float _velocityY = 0.0f;
+    private float _velocityX = 0.0f;
     public float Acceleration = 0.1f;
     public float Deceleration = 0.5f;
-    private int velocityHash;
+    private int velocityHashY;
+    private int velocityHashX;
 
     private void Start()
     {
-        velocityHash = Animator.StringToHash("MoveY");
+        velocityHashY = Animator.StringToHash("MoveY");
+        velocityHashX = Animator.StringToHash("MoveX");
         _rb = GetComponent<Rigidbody>();
         _rb.freezeRotation = true;
         _audio = GetComponent<AudioSource>();
@@ -92,38 +95,112 @@ public class PlayerMovement : MonoBehaviour
             {
                 animator.SetBool("isCrouching", false);
             }
-
-            if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && _velocity < 0.5f)
+            //W///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if ((Input.GetKey(KeyCode.W)) && _velocityY < 0.5f)
             {
                 _isRunning = true;
-                _velocity += Time.deltaTime * Acceleration;
+                _velocityY += Time.deltaTime * Acceleration;
             }
 
-            if (!(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && _velocity > 0.0f)
+            if (!(Input.GetKey(KeyCode.W)) && _velocityY > 0.0f)
             {
                 _isRunning = false;
-                _velocity -= Time.deltaTime * Deceleration;
+                _velocityY -= Time.deltaTime * Deceleration;
             }
-
-            if (Input.GetKey(KeyCode.LeftShift) && (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && _velocity < 1.0f)
+            //S///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if ((Input.GetKey(KeyCode.S)) && _velocityY > -0.5f)
             {
                 _isRunning = true;
-                _velocity += Time.deltaTime * Acceleration;
+                _velocityY -= Time.deltaTime * Acceleration;
             }
 
-            if (!Input.GetKey(KeyCode.LeftShift) && _velocity > 0.5f)
+            if (!(Input.GetKey(KeyCode.S)) && _velocityY < 0.0f)
             {
                 _isRunning = false;
-                _velocity -= Time.deltaTime * Deceleration;
+                _velocityY += Time.deltaTime * Deceleration;
+            }
+            //D///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if ((Input.GetKey(KeyCode.D)) && _velocityX < 0.5f)
+            {
+                _isRunning = true;
+                _velocityX += Time.deltaTime * Acceleration;
             }
 
-            if (!(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftShift)) && _velocity < 0.0f)
+            if (!(Input.GetKey(KeyCode.D)) && _velocityX > 0.0f)
             {
                 _isRunning = false;
-                _velocity = 0.0f;
+                _velocityX -= Time.deltaTime * Deceleration;
+            }
+            //A///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if ((Input.GetKey(KeyCode.A)) && _velocityX > -0.5f)
+            {
+                _isRunning = true;
+                _velocityX -= Time.deltaTime * Acceleration;
             }
 
-            animator.SetFloat(velocityHash, _velocity);
+            if (!(Input.GetKey(KeyCode.A)) && _velocityX < 0.0f)
+            {
+                _isRunning = false;
+                _velocityX += Time.deltaTime * Deceleration;
+            }
+            //Shift///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if (Input.GetKey(KeyCode.LeftShift) && (Input.GetKey(KeyCode.W)) && _velocityY < 1.0f)
+            {
+                _isRunning = true;
+                _velocityY += Time.deltaTime * Acceleration;
+            }
+
+            if (!Input.GetKey(KeyCode.LeftShift) && (Input.GetKey(KeyCode.W)) && _velocityY > 0.5f)
+            {
+                _isRunning = false;
+                _velocityY -= Time.deltaTime * Deceleration;
+            }
+            //Shift///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if (Input.GetKey(KeyCode.LeftShift) && (Input.GetKey(KeyCode.S)) && _velocityY > -1.0f)
+            {
+                _isRunning = true;
+                _velocityY -= Time.deltaTime * Acceleration;
+            }
+
+            if (!Input.GetKey(KeyCode.LeftShift) && (Input.GetKey(KeyCode.S)) && _velocityY < -0.5f)
+            {
+                _isRunning = false;
+                _velocityY += Time.deltaTime * Deceleration;
+            }
+            //Shift///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if (Input.GetKey(KeyCode.LeftShift) && (Input.GetKey(KeyCode.D)) && _velocityX < 1.0f)
+            {
+                _isRunning = true;
+                _velocityX += Time.deltaTime * Acceleration;
+            }
+
+            if (!Input.GetKey(KeyCode.LeftShift) && (Input.GetKey(KeyCode.D)) && _velocityX > 0.5f)
+            {
+                _isRunning = false;
+                _velocityX -= Time.deltaTime * Deceleration;
+            }
+            //Shift///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if (Input.GetKey(KeyCode.LeftShift) && (Input.GetKey(KeyCode.A)) && _velocityX > -1.0f)
+            {
+                _isRunning = true;
+                _velocityX -= Time.deltaTime * Acceleration;
+            }
+
+            if (!Input.GetKey(KeyCode.LeftShift) && (Input.GetKey(KeyCode.A)) && _velocityX < -0.5f)
+            {
+                _isRunning = false;
+                _velocityX += Time.deltaTime * Deceleration;
+            }
+            //Stop///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if (!(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftShift)) && Mathf.Abs(_velocityY) < 0.06f && Mathf.Abs(_velocityX) < 0.06f)
+            {
+                _isRunning = false;
+                _velocityY = 0;
+               _velocityX = 0;
+            }
+
+            animator.SetFloat(velocityHashY, _velocityY);
+            animator.SetFloat(velocityHashX, _velocityX);
             SpeedControl();
         }
 
@@ -148,11 +225,7 @@ public class PlayerMovement : MonoBehaviour
                     //GameManager.Instance.IsOnLadder = false;
                 }
             }
-
-
         }
-
-       
     }
 
     private void FixedUpdate()
