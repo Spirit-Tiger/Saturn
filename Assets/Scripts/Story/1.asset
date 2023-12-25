@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TaskId: 0
   TaskName: 
-  TaskDescription: Open gate doors
+  TaskDescription: Open the gate
   Finfished: 1
   TaskTriger: {fileID: 0}

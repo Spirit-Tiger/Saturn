@@ -112,28 +112,28 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Exposure: 0.86
+    - _Exposure: 1.5
     - _FogBottom: 0
-    - _FogEnd: 0.4
+    - _FogEnd: 0.46
     - _FogIntens: 1
-    - _FogStart: 0
+    - _FogStart: 0.25
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _MieIntens: 0
-    - _MieSize: 0.8
+    - _MieIntens: 0.59
+    - _MieSize: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Rotation: 6
+    - _Rotation: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
-    - _SunDir: 0
+    - _SunDir: 360
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1

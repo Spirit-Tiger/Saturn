@@ -15,30 +15,30 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.5176471, g: 0.47717905, b: 0.4627451, a: 1}
-  m_FogMode: 3
+  m_FogColor: {r: 0.03292984, g: 0.03773582, b: 0.03533283, a: 1}
+  m_FogMode: 1
   m_FogDensity: 0.03
   m_LinearFogStart: 0
   m_LinearFogEnd: 20
-  m_AmbientSkyColor: {r: 0.3137255, g: 0.26415092, b: 0.26415092, a: 1}
-  m_AmbientEquatorColor: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
-  m_AmbientGroundColor: {r: 0.6226415, g: 0.3714682, b: 0.12041651, a: 1}
-  m_AmbientIntensity: 0
+  m_AmbientSkyColor: {r: 0.16981131, g: 0.07748013, b: 0.05206479, a: 1}
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientIntensity: 0.74
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: a7d5343af12489d46a390ca0e0e7fa35, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: e391f00234292cc4f935308c11cf0e54, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
-  m_DefaultReflectionMode: 0
+  m_DefaultReflectionMode: 1
   m_DefaultReflectionResolution: 16
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 0.157
+  m_ReflectionIntensity: 0.5
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6534504, g: 0.077044964, b: 0.0038967682, a: 0.157}
+  m_IndirectSpecularColor: {r: 0.050560888, g: 0.015051873, b: 0.009692251, a: 0.5}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12575,6 +12575,27 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 315652013196082209}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &762480933
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762480931}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &763559962
 GameObject:
   m_ObjectHideFlags: 0
@@ -15617,12 +15638,12 @@ PrefabInstance:
     - target: {fileID: 5551356447122632898, guid: fdf9e00982102b241a8b37f9c60296ae,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.0032347369
+      value: 0.003234737
       objectReference: {fileID: 0}
     - target: {fileID: 5551356447122632898, guid: fdf9e00982102b241a8b37f9c60296ae,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.059547495
+      value: 0.0595475
       objectReference: {fileID: 0}
     - target: {fileID: 5551356447122632898, guid: fdf9e00982102b241a8b37f9c60296ae,
         type: 3}
@@ -22555,12 +22576,12 @@ PrefabInstance:
     - target: {fileID: 5551356447122632898, guid: fdf9e00982102b241a8b37f9c60296ae,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.0032347369
+      value: 0.003234737
       objectReference: {fileID: 0}
     - target: {fileID: 5551356447122632898, guid: fdf9e00982102b241a8b37f9c60296ae,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.059547495
+      value: 0.0595475
       objectReference: {fileID: 0}
     - target: {fileID: 5551356447122632898, guid: fdf9e00982102b241a8b37f9c60296ae,
         type: 3}
@@ -27439,7 +27460,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156607671}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
@@ -27447,8 +27468,8 @@ MonoBehaviour:
   m_IsGlobal: 1
   priority: 0
   blendDistance: 0
-  weight: 0.15
-  sharedProfile: {fileID: 11400000, guid: 559f0884d82007647b1ab904e167d89c, type: 2}
+  weight: 0
+  sharedProfile: {fileID: 11400000, guid: 475bd37ab331e3d46a60e7ccd0b55d6e, type: 2}
 --- !u!4 &1156607673
 Transform:
   m_ObjectHideFlags: 0
@@ -29559,7 +29580,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 127
   m_IsActive: 1
 --- !u!4 &1297631145
 Transform:
@@ -35055,6 +35076,8 @@ PlayableDirector:
     value: {fileID: 1582001877}
   - key: {fileID: -8230631541857475740, guid: 5b14ccbb99427e148b4df8babd44eed7, type: 2}
     value: {fileID: 835104409}
+  - key: {fileID: 2727454101017222151, guid: 5b14ccbb99427e148b4df8babd44eed7, type: 2}
+    value: {fileID: 762480933}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &1540395127
@@ -39582,12 +39605,12 @@ PrefabInstance:
     - target: {fileID: 5551356447122632898, guid: fdf9e00982102b241a8b37f9c60296ae,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.0032347369
+      value: 0.003234737
       objectReference: {fileID: 0}
     - target: {fileID: 5551356447122632898, guid: fdf9e00982102b241a8b37f9c60296ae,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.059547495
+      value: 0.0595475
       objectReference: {fileID: 0}
     - target: {fileID: 5551356447122632898, guid: fdf9e00982102b241a8b37f9c60296ae,
         type: 3}
@@ -51649,6 +51672,11 @@ PrefabInstance:
       propertyPath: _pressButtonText
       value: 
       objectReference: {fileID: 2132567690}
+    - target: {fileID: 2832089006532612969, guid: 3be05b59dd8fdc448a19a14d8cb6bf83,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2832135288763383691, guid: 3be05b59dd8fdc448a19a14d8cb6bf83,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -54362,6 +54390,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 315652013196082213}
+    - targetCorrespondingSourceObject: {fileID: 6227716662921670376, guid: 3be05b59dd8fdc448a19a14d8cb6bf83,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 762480933}
     - targetCorrespondingSourceObject: {fileID: 8747241524052990489, guid: 3be05b59dd8fdc448a19a14d8cb6bf83,
         type: 3}
       insertIndex: -1
