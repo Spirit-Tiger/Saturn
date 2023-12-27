@@ -98,49 +98,49 @@ public class PlayerMovement : MonoBehaviour
             //W///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if ((Input.GetKey(KeyCode.W)) && _velocityY < 0.5f)
             {
-                _isRunning = true;
+                
                 _velocityY += Time.deltaTime * Acceleration;
             }
 
             if (!(Input.GetKey(KeyCode.W)) && _velocityY > 0.0f)
             {
-                _isRunning = false;
+                
                 _velocityY -= Time.deltaTime * Deceleration;
             }
             //S///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if ((Input.GetKey(KeyCode.S)) && _velocityY > -0.5f)
             {
-                _isRunning = true;
+                
                 _velocityY -= Time.deltaTime * Acceleration;
             }
 
             if (!(Input.GetKey(KeyCode.S)) && _velocityY < 0.0f)
             {
-                _isRunning = false;
+                
                 _velocityY += Time.deltaTime * Deceleration;
             }
             //D///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if ((Input.GetKey(KeyCode.D)) && _velocityX < 0.5f)
             {
-                _isRunning = true;
+                
                 _velocityX += Time.deltaTime * Acceleration;
             }
 
             if (!(Input.GetKey(KeyCode.D)) && _velocityX > 0.0f)
             {
-                _isRunning = false;
+                
                 _velocityX -= Time.deltaTime * Deceleration;
             }
             //A///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if ((Input.GetKey(KeyCode.A)) && _velocityX > -0.5f)
             {
-                _isRunning = true;
+                
                 _velocityX -= Time.deltaTime * Acceleration;
             }
 
             if (!(Input.GetKey(KeyCode.A)) && _velocityX < 0.0f)
             {
-                _isRunning = false;
+                
                 _velocityX += Time.deltaTime * Deceleration;
             }
             //Shift///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
