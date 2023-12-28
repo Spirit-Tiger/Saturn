@@ -14,13 +14,13 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5176471, g: 0.47717905, b: 0.4627451, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0.3584906, g: 0.23891316, b: 0.19108224, a: 0.5}
   m_FogMode: 3
   m_FogDensity: 0.03
   m_LinearFogStart: 0
   m_LinearFogEnd: 20
-  m_AmbientSkyColor: {r: 0.3137255, g: 0.26415092, b: 0.26415092, a: 1}
+  m_AmbientSkyColor: {r: 0.25471696, g: 0.15739584, b: 0.15739584, a: 0.5}
   m_AmbientEquatorColor: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
   m_AmbientGroundColor: {r: 0.6226415, g: 0.3714682, b: 0.12041651, a: 1}
   m_AmbientIntensity: 0
@@ -339,7 +339,7 @@ GameObject:
   m_Component:
   - component: {fileID: 41843885}
   m_Layer: 0
-  m_Name: Building1 (4)
+  m_Name: Ruined Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18835,17 +18835,17 @@ PrefabInstance:
     - target: {fileID: 2074272101455949510, guid: 3693d1810da580841bfafb54dba9a4c6,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.499975
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2074272101455949510, guid: 3693d1810da580841bfafb54dba9a4c6,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2074272101455949510, guid: 3693d1810da580841bfafb54dba9a4c6,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.499975
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2277806007838131734, guid: 3693d1810da580841bfafb54dba9a4c6,
         type: 3}
@@ -18855,7 +18855,7 @@ PrefabInstance:
     - target: {fileID: 2277806007838131734, guid: 3693d1810da580841bfafb54dba9a4c6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2535683054117451392, guid: 3693d1810da580841bfafb54dba9a4c6,
         type: 3}
@@ -18875,17 +18875,17 @@ PrefabInstance:
     - target: {fileID: 3111213536274870840, guid: 3693d1810da580841bfafb54dba9a4c6,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.499975
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3111213536274870840, guid: 3693d1810da580841bfafb54dba9a4c6,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3111213536274870840, guid: 3693d1810da580841bfafb54dba9a4c6,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.499975
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3896273690739292524, guid: 3693d1810da580841bfafb54dba9a4c6,
         type: 3}
@@ -18995,22 +18995,22 @@ PrefabInstance:
     - target: {fileID: 7764171876386843800, guid: 3693d1810da580841bfafb54dba9a4c6,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.499975
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7764171876386843800, guid: 3693d1810da580841bfafb54dba9a4c6,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8638458137444496240, guid: 3693d1810da580841bfafb54dba9a4c6,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.499975
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8638458137444496240, guid: 3693d1810da580841bfafb54dba9a4c6,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27228,7 +27228,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1110751533
 Transform:
   m_ObjectHideFlags: 0
@@ -44255,7 +44255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1759408464
 RectTransform:
   m_ObjectHideFlags: 0
@@ -46344,6 +46344,55 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0045739277, y: 0.0008455654, z: 0.012741314}
   m_Center: {x: 0.0017402883, y: -0.00068897125, z: 0.0024298485}
+--- !u!1 &1902643984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1902643986}
+  - component: {fileID: 1902643985}
+  m_Layer: 0
+  m_Name: PostProc (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1902643985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902643984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 0.15
+  sharedProfile: {fileID: 11400000, guid: 475bd37ab331e3d46a60e7ccd0b55d6e, type: 2}
+--- !u!4 &1902643986
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902643984}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -62.49, y: 5.32, z: -28.045}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1904555150 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7302926960702964815, guid: 6d1da06937cfb9e43aa45a3c08366e22,
@@ -56619,6 +56668,7 @@ SceneRoots:
   - {fileID: 1342520388}
   - {fileID: 965343963}
   - {fileID: 1156607673}
+  - {fileID: 1902643986}
   - {fileID: 895054768}
   - {fileID: 1108604150}
   - {fileID: 41843885}
