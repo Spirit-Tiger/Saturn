@@ -15,6 +15,13 @@ public class PlayerMovement : MonoBehaviour
     private float _runSpeed;
     [SerializeField]
     private float _ladderSpeed;
+    [SerializeField]
+    private float _gravity = 9.81f;
+    [SerializeField]
+    private float _groundCheckRadius = 1f;
+
+    [SerializeField]
+    private Transform _groundCheckTransform;
 
     [SerializeField]
     private float _groundDrag;
@@ -22,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private float _playerHeight;
 
     private LayerMask _groundLayer;
+    private int _playerLayer;
 
     public Transform orientation;
 
@@ -31,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     private Rigidbody _rb;
+    private CharacterController _charController;
     private AudioSource _audio;
 
     [SerializeField]
@@ -64,28 +73,25 @@ public class PlayerMovement : MonoBehaviour
     {
         velocityHashY = Animator.StringToHash("MoveY");
         velocityHashX = Animator.StringToHash("MoveX");
-        _rb = GetComponent<Rigidbody>();
-        _rb.freezeRotation = true;
+        _charController = GetComponent<CharacterController>();
         _audio = GetComponent<AudioSource>();
         _groundLayer = LayerMask.GetMask("Ground");
+        _playerLayer = ~LayerMask.GetMask("Player");
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(_groundCheckTransform.position, _groundCheckRadius);
     }
 
     private void Update()
     {
-        _isGrounded = Physics.Raycast(transform.position, Vector3.down, _playerHeight * 0.5f + 0.4f);
+        _isGrounded = Physics.CheckSphere(_groundCheckTransform.position, _groundCheckRadius, _playerLayer);
         GetInput();
+
         if (GameManager.Instance.CanAct)
         {
 
-            if (_isGrounded)
-            {
-                _rb.drag = _groundDrag;
-            }
-            else
-            {
-                _rb.drag = 0;
-            }
-            
             if ((Input.GetKey(KeyCode.LeftControl)))
             {
                 animator.SetBool("isCrouching", true);
@@ -98,49 +104,49 @@ public class PlayerMovement : MonoBehaviour
             //W///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if ((Input.GetKey(KeyCode.W)) && _velocityY < 0.5f)
             {
-                
+
                 _velocityY += Time.deltaTime * Acceleration;
             }
 
             if (!(Input.GetKey(KeyCode.W)) && _velocityY > 0.0f)
             {
-                
+
                 _velocityY -= Time.deltaTime * Deceleration;
             }
             //S///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if ((Input.GetKey(KeyCode.S)) && _velocityY > -0.5f)
             {
-                
+
                 _velocityY -= Time.deltaTime * Acceleration;
             }
 
             if (!(Input.GetKey(KeyCode.S)) && _velocityY < 0.0f)
             {
-                
+
                 _velocityY += Time.deltaTime * Deceleration;
             }
             //D///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if ((Input.GetKey(KeyCode.D)) && _velocityX < 0.5f)
             {
-                
+
                 _velocityX += Time.deltaTime * Acceleration;
             }
 
             if (!(Input.GetKey(KeyCode.D)) && _velocityX > 0.0f)
             {
-                
+
                 _velocityX -= Time.deltaTime * Deceleration;
             }
             //A///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if ((Input.GetKey(KeyCode.A)) && _velocityX > -0.5f)
             {
-                
+
                 _velocityX -= Time.deltaTime * Acceleration;
             }
 
             if (!(Input.GetKey(KeyCode.A)) && _velocityX < 0.0f)
             {
-                
+
                 _velocityX += Time.deltaTime * Deceleration;
             }
             //Shift///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -196,17 +202,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 _isRunning = false;
                 _velocityY = 0;
-               _velocityX = 0;
+                _velocityX = 0;
             }
 
             animator.SetFloat(velocityHashY, _velocityY);
             animator.SetFloat(velocityHashX, _velocityX);
-            SpeedControl();
         }
 
         if (GameManager.Instance.IsOnLadder)
         {
-      
+
             RaycastHit hit;
             float hitDist = 2f;
 
@@ -216,7 +221,6 @@ public class PlayerMovement : MonoBehaviour
                 if (Physics.Raycast(transform.position + Vector3.down * 0.3f, orientation.forward, out hit, hitDist, LayerMask.GetMask("Ladder")))
                 {
                     Debug.DrawLine(transform.position + Vector3.down * 0.3f, transform.position + Vector3.down * 0.3f + orientation.forward * hitDist, Color.yellow);
-                    //Debug.Log(hit.collider.transform.forward);
                 }
                 else
                 {
@@ -230,14 +234,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!GameManager.Instance.IsOnLadder)
+        {
+            _charController.Move(Vector3.down * _gravity * Time.fixedDeltaTime);
+        }
+
         if (GameManager.Instance.CanAct)
         {
-            _rb.useGravity = true;
             MovePlayer();
         }
         if (GameManager.Instance.IsOnLadder)
         {
-            _rb.useGravity = false;
             MoveOnLadder();
         }
 
@@ -306,14 +313,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (_isMoving)
         {
-            //transform.GetChild(0).GetComponent<Animator>().SetBool("isWalking", true);
             PlayStepSounds();
         }
         if (!_isMoving)
         {
-            //transform.GetChild(0).GetComponent<Animator>().SetBool("isWalking", false);
             _audio.Stop();
-
         }
 
         moveDirection = orientation.forward * _verticalInput + orientation.right * _horizontalInput;
@@ -330,7 +334,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (_isGrounded)
         {
-            _rb.AddForce(moveDirection.normalized * speed, ForceMode.Force);
+            _charController.Move(moveDirection.normalized * speed * Time.fixedDeltaTime);
         }
     }
 
@@ -338,34 +342,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_verticalInput != 0 && !GameManager.Instance.IsExitingLadder && !GameManager.Instance.IsEnteringLadderDown)
         {
-            if(_verticalInput < 0 && _isGrounded)
+            if (_verticalInput < 0 && _isGrounded)
             {
                 GameManager.Instance.IsOnLadder = false;
                 GameManager.Instance.CanAct = true;
             }
             transform.position += new Vector3(0, _ladderSpeed * _verticalInput * Time.fixedDeltaTime, 0);
-        }
-    }
-
-    private void SpeedControl()
-    {
-
-        Vector3 flatVel = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
-        float speed = 0;
-
-        if (_isRunning)
-        {
-            speed = _runSpeed;
-        }
-        else
-        {
-            speed = _moveSpeed;
-        }
-
-        if (flatVel.magnitude > speed)
-        {
-            Vector3 limitedVel = flatVel.normalized * speed;
-            _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, limitedVel.z);
         }
     }
 

@@ -44,9 +44,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        CanAct = false;
-        UnlockCursor();
-        HideCrosshair();
+        /*        CanAct = false;
+                UnlockCursor();
+                HideCrosshair();*/
+        CanAct = true;
+        HideCursor();
+        ShowCrosshair();
     }
 
     private void Update()
