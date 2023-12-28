@@ -6,13 +6,13 @@ using UnityEngine.Playables;
 public class CutSceneTrigger : MonoBehaviour
 {
     public PlayableDirector CutScene;
-    public Collider BoxCollider;
+    public CharacterController Controller;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            BoxCollider.enabled = false;
+            Controller.enabled = false;
             CutScene.enabled = true;
             GameManager.Instance.CanAct = false;
             Invoke("EnableActing", (float)CutScene.duration);
@@ -22,6 +22,7 @@ public class CutSceneTrigger : MonoBehaviour
     void EnableActing()
     {
         GameManager.Instance.CanAct = true;
+        Controller.enabled = true;
         Destroy(gameObject);
     }
 
