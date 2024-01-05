@@ -66,14 +66,9 @@ public class EnemyAI : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, _target) < 2)
             {
-                
                 IterateWaypointIndex();
                 UpdateDestinition();
             }
-            /*if(_fieldOfView.CanSeePlayer == false)
-            {
-                ChangeState(EnemyState.Patrolling);
-            }*/
         }
         if (CurrentEnemyState == EnemyState.Chase)
         {
@@ -151,6 +146,11 @@ public class EnemyAI : MonoBehaviour
     {
         _target = _waypoints[_waypointIndex].position;
         StartCoroutine(TimeToSwitch());
+    }
+
+    public void SetDestinition(Vector3 targetPosition)
+    {
+        _target = targetPosition;
     }
 
     private void IterateWaypointIndex()
